@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    file = args.notebooks
+    file = args.file
 
     file[:] = [x for x in file if x.endswith('.ipynb')]
 
