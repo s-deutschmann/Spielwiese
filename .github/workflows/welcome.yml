@@ -20,7 +20,7 @@ jobs:
           if [ ! -z "$notebooks" ]
           then
               # Run the script to clear the notebooks
-              python .githooks/clear_notebooks.py $notebooks
+              python .github/script/clear_notebooks.py $notebooks
               # Re-add notebooks to staging area
               git add $notebooks
           fi
