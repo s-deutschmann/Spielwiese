@@ -16,6 +16,11 @@ jobs:
         uses: tj-actions/changed-files@v29.0.4
       - name: List all changed files
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+          notebooks=${{ steps.changed-files.outputs.all_changed_files }}
+          if [ ! -z "$notebooks" ]
+          then
+              # Run the script to clear the notebooks
+              python .githooks/clear_notebooks.py $notebooks
+              # Re-add notebooks to staging area
+              git add $notebooks
+          fi
