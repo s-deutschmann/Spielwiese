@@ -24,3 +24,5 @@ jobs:
               # Re-add notebooks to staging area
               git add $notebooks
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
