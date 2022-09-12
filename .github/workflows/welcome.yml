@@ -13,4 +13,5 @@ jobs:
       - name: files
         uses: jitterbit/get-changed-files@v1
       - run: |
-             python .githooks/clear_notebooks.py ${{ steps.files.outputs.added_modified}}
+          notebooks=${{ steps.files.outputs.added_modified}}
+             python .github/script/clear_notebooks.py $notebooks
