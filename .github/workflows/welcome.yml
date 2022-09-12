@@ -18,8 +18,9 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.ipynb ]]
-            jupyter nbconvert --clear-output --inplace $file
-            git add $file
+            then
+              jupyter nbconvert --clear-output --inplace $file
+              git add $file
             fi
           done
         env:
