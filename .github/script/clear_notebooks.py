@@ -20,12 +20,10 @@ def process_notebook(filename, execute=True):
         msg = ''
 
     except CellExecutionError:
-        out = None
         msg = f'\n  Error executing the notebook "{filename}".\n'
         msg += f'  See notebook "{filename}" for the traceback.'
         
     # Clear notebook outputs and save as .ipynb
-    cleared = clear.preprocess(nb, {})
     with open(filename, mode='w', encoding='utf-8') as f:
         nbformat.write(nb, f)
          

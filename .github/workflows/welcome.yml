@@ -18,9 +18,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             python .github/script/clear_notebooks.py $file
+            git add file
           done
-    
-              # Re-add notebooks to staging area
-              # git add $notebooks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
