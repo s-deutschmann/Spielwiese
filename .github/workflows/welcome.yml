@@ -23,7 +23,7 @@ jobs:
               git config --global user.email "${GH_USERNAME}@users.noreply.github.com"
               git config --global user.name "${GH_USERNAME}"
               git add $file
-              git commit -m "commit message"
+              git commit -m ${{ github.event.head_commit.message }}
               git push
             fi
           done
