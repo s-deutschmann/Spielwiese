@@ -55,5 +55,6 @@ if __name__ == '__main__':
             raise IOError
         
     for fn in notebooks:
+        print("Erflog")
         process_notebook(fn, execute=False)
     
