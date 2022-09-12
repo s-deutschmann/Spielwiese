@@ -14,15 +14,13 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v29.0.4
-      - name: Notebooks
+      - name: Look up and clear Notebooks
         run: |
-          notebooks=${{ steps.changed-files.outputs.all_changed_files }}
-          if [ ! -z "$notebooks" ]
-          then
-              # Run the script to clear the notebooks
-              python .github/script/clear_notebooks.py $notebooks
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            python .github/script/clear_notebooks.py $file
+          done
+    
               # Re-add notebooks to staging area
-              git add $notebooks
-          fi
+              # git add $notebooks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

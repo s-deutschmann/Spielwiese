@@ -3,10 +3,10 @@ from nbconvert.preprocessors import ClearOutputPreprocessor, ExecutePreprocessor
 from nbconvert.preprocessors import CellExecutionError
 import nbformat
 
-def process_notebook(notebook_filename, execute=True):
+def process_notebook(filename, execute=True):
     '''Checks if an IPython notebook runs without error from start to finish. If so, writes the notebook to HTML (with outputs) and overwrites the .ipynb file (without outputs).
     '''
-    with open(notebook_filename) as f:
+    with open(filename) as f:
         nb = nbformat.read(f, as_version=4)
         
     clear = ClearOutputPreprocessor()
@@ -21,39 +21,39 @@ def process_notebook(notebook_filename, execute=True):
 
     except CellExecutionError:
         out = None
-        msg = f'\n  Error executing the notebook "{notebook_filename}".\n'
-        msg += f'  See notebook "{notebook_filename}" for the traceback.'
+        msg = f'\n  Error executing the notebook "{filename}".\n'
+        msg += f'  See notebook "{filename}" for the traceback.'
         
     # Clear notebook outputs and save as .ipynb
     cleared = clear.preprocess(nb, {})
-    with open(notebook_filename, mode='w', encoding='utf-8') as f:
+    with open(filename, mode='w', encoding='utf-8') as f:
         nbformat.write(nb, f)
          
-    print(f"Processed {notebook_filename}{msg}")
+    print(f"Processed {filename}{msg}")
 
     return
 
 
 if __name__ == '__main__':
     
-    parser = argparse.ArgumentParser(description='read some notebok files')
-    parser.add_argument('notebooks',
-                        metavar='Notebooks', 
+    parser = argparse.ArgumentParser(description='read some files')
+    parser.add_argument('file',
+                        metavar='File',
                         type=str, 
                         nargs='+',
-                        help='notebooks')
+                        help='Files')
 
     args = parser.parse_args()
 
-    notebooks = args.notebooks
+    file = args.notebooks
 
-    notebooks[:] = [x for x in notebooks if x.endswith('.ipynb')]
+    file[:] = [x for x in file if x.endswith('.ipynb')]
 
-    for fn in notebooks:
+    for fn in file:
         if not fn.endswith('.ipynb'):
             print(f'Error: file {fn} is not an IPython notebook.')
             raise IOError
         
-    for fn in notebooks:
+    for fn in file:
         process_notebook(fn, execute=False)
     
