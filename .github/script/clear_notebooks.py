@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     notebooks = args.notebooks
 
-    notebooks[:] = [x for x in notebooks if not x.endswith('.ipynb')]
+    notebooks[:] = [x for x in notebooks if x.endswith('.ipynb')]
 
     for fn in notebooks:
         if not fn.endswith('.ipynb'):
