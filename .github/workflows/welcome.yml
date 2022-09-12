@@ -16,4 +16,9 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           notebooks=${{ steps.files.outputs.added_modified}}
-             python .github/script/clear_notebooks.py $notebooks
+          if [ ! -z "$notebooks" ]
+          then
+            python .githooks/clear_notebooks.py $notebooks
+      
+            git add $notebooks
+          fi
