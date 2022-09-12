@@ -19,10 +19,14 @@ jobs:
             if [[ $file == *.ipynb ]]
             then
               jupyter nbconvert --clear-output --inplace $file
+              
+              git config --global user.email "${GH_USERNAME}@users.noreply.github.com"
+              git config --global user.name "${GH_USERNAME}"
               git add $file
               git commit -m "commit message"
               git push
             fi
           done
         env:
+          GH_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
