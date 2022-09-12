@@ -47,6 +47,9 @@ if __name__ == '__main__':
 
     notebooks = args.notebooks
 
+    for fn in notebooks:
+        print(f'{fn}')
+
     notebooks[:] = [x for x in notebooks if x.endswith('.ipynb')]
 
     for fn in notebooks:
@@ -55,6 +58,5 @@ if __name__ == '__main__':
             raise IOError
         
     for fn in notebooks:
-        print("Erflog")
         process_notebook(fn, execute=False)
     
