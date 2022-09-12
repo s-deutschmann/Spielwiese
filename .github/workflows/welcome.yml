@@ -9,8 +9,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8 #install the python needed
-      - run: pip install nbconvert
-      - run: pip install nbformat
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v29.0.4
@@ -21,6 +19,8 @@ jobs:
             then
               jupyter nbconvert --clear-output --inplace $file
               git add $file
+              git commit -m "commit message"
+              git push
             fi
           done
         env:
