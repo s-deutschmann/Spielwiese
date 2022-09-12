@@ -10,13 +10,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8 #install the python needed
+      - name: echo
+        run: echo "Hallo"
       - name: run-python-script
         run: |
           notebooks=`git diff --cached --name-only --diff-filter=d | grep  .ipynb`
 
           if [ ! -z "$notebooks" ]
           then
-              echo "test"
               python .github/script/clear_notebooks.py $notebooks
               git add $notebooks
           fi
