@@ -16,7 +16,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           notebooks=${{ steps.files.outputs.added_modified}}
-          echo "$notebooks"
+          echo $notebooks
           if [ ! -z "$notebooks" ]
           then
             python .githooks/clear_notebooks.py $notebooks
