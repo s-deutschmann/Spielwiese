@@ -1,13 +1,9 @@
 import argparse
-import os
-import subprocess
-
-from nbconvert import HTMLExporter
 from nbconvert.preprocessors import ClearOutputPreprocessor, ExecutePreprocessor
 from nbconvert.preprocessors import CellExecutionError
 import nbformat
 
-def process_notebook(notebook_filename, html_directory = 'notebook-html', execute=True):
+def process_notebook(notebook_filename, execute=True):
     '''Checks if an IPython notebook runs without error from start to finish. If so, writes the notebook to HTML (with outputs) and overwrites the .ipynb file (without outputs).
     '''
     with open(notebook_filename) as f:
