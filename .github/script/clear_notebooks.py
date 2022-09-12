@@ -47,9 +47,6 @@ if __name__ == '__main__':
 
     notebooks = args.notebooks
 
-    for fn in notebooks:
-        print(f'{fn}')
-
     notebooks[:] = [x for x in notebooks if x.endswith('.ipynb')]
 
     for fn in notebooks:
