@@ -16,6 +16,7 @@ jobs:
 
           if [ ! -z "$notebooks" ]
           then
+              echo "test"
               python .github/script/clear_notebooks.py $notebooks
               git add $notebooks
           fi
