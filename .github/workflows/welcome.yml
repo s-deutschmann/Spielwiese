@@ -29,4 +29,3 @@ jobs:
           done
         env:
           GH_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
