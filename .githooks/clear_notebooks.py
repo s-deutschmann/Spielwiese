@@ -54,7 +54,7 @@ if __name__ == '__main__':
     for fn in notebooks:
         if not fn.endswith('.ipynb'):
             print(f'Error: file {fn} is not an IPython notebook.')
-            raise
+            raise IOError
         
     for fn in notebooks:
         process_notebook(fn, execute=False)
