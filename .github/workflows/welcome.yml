@@ -1,34 +1,35 @@
 name: Clear Notebook
 on:
   push:
-    branches:
-      - dev
-      jobs:
-        publish:
-          runs-on: ubuntu-latest
-          steps:
-            - uses: actions/checkout@v3
-            - name: setup python
-              uses: actions/setup-python@v2
-              with:
-                python-version: 3.8
-            - run: pip install nbconvert
-            - name: Get changed files
-              id: changed-files
-              uses: tj-actions/changed-files@v29.0.4
-            - name: Look up and clear Notebooks
-              run: |
-                for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-                  if [[ $file == *.ipynb ]]
-                  then
-                    jupyter nbconvert --clear-output --inplace $file
-                    git config --global user.email "${GH_USERNAME}@users.noreply.github.com"
-                    git config --global user.name "${GH_USERNAME}"
-                    git add $file
-                    git commit -m "${{ github.event.head_commit.message }}"
-                    git push
-                    exit 0
-                  fi
-                done
-              env:
-                GH_USERNAME: ${{ github.actor }}
+  branches:
+    - dev
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: pip install nbconvert
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v29.0.4
+      - name: Look up and clear Notebooks
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ $file == *.ipynb ]]
+            then
+              jupyter nbconvert --clear-output --inplace $file
+              git config --global user.email "${GH_USERNAME}@users.noreply.github.com"
+              git config --global user.name "${GH_USERNAME}"
+              git add $file
+              git commit -m "${{ github.event.head_commit.message }}"
+              git push
+              exit 0
+            fi
+          done
+        env:
+          GH_USERNAME: ${{ github.actor }}
